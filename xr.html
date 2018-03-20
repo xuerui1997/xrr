@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+      
+    <title>xr</title>
+      
+    <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
+      
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+      
+    <script src="https://js.arcgis.com/3.23/"></script>
+      
+    <script>
+        var map;
+
+        function show(){  
+            var zoom=document.getElementById("zoom").value;
+            var logitude=document.getElementById("log").value;
+            var latitude=document.getElementById("lag").value;
+            var center=[logitude,latitude];
+            var basemap=document.getElementById("basemap").value;
+            
+        require(["esri/map", "dojo/domReady!"], function(Map) {
+        map = new Map("map", {
+          basemap: basemap,  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+          center: center , // longitude, latitude
+          zoom: zoom,
+        });
+          }); 
+             }
+        
+
+        function refresh(){
+            var zoom=document.getElementById("zoom").value;
+            var logitude=document.getElementById("log").value;
+            var latitude=document.getElementById("lag").value;
+            var center=[logitude,latitude];
+            var basemap=document.getElementById("basemap").value;
+
+               map.setBasemap(basemap);
+               map.setZoom(zoom);
+               map.centerAt(center);
+         
+        }
+     </script>
+  </head>
+
+  <body>
+
+     <input id="zoom" type="text" value="" placeholder="请输入缩放级别" />
+     <input id="log" type="text" value="" placeholder="请输入地图范围经度" />
+     <input id="lag" type="text" value="" placeholder="请输入地图范围纬度" />
+      地图类型：
+      <select id="basemap">
+      <option value="topo">topo</option>
+      <option value="streets">streets</option>
+      <option value="satellite">satellite</option>
+      <option value="hybrid">hybrid</option>
+      <option value="gray">gray</option>
+      <option value="oceans">oceans</option>
+      <option value="national-geographic">national-geographic</option> 
+      <option value="osm">osm</option>  
+      </select> 
+     <input type="button" value="显示地图"  onclick="show()"/>
+     <input type="button" value="刷新"  onclick="refresh()"/>
+    
+      <div id="map"></div>
+  </body>
+</html>
